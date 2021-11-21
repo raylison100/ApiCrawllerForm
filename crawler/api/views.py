@@ -20,3 +20,12 @@ def start(request):
                 'message': "Job Fail"
             }
         )
+
+
+def healthz(request):
+    return JsonResponse(
+        {
+            'error': False,
+            'message': "API CRAWLER ON"
+        }
+    )
