@@ -3,23 +3,18 @@ from ..service.jobService import JobService
 
 
 def start(request):
-    try:
-        jobService = JobService()
-        jobService.start()
+    print("Init Job")
+    jobService = JobService()
+    print("Start Job")
+    jobService.start()
 
-        return JsonResponse(
-            {
-                'erro': False,
-                'message': "Job Finish"
-            }
-        )
-    except:
-        return JsonResponse(
-            {
-                'erro': True,
-                'message': "Job Fail"
-            }
-        )
+    print("Finish Job")
+    return JsonResponse(
+        {
+            'erro': False,
+            'message': "Job Finish"
+        }
+    )
 
 
 def healthz(request):

@@ -10,6 +10,8 @@ class ExtractorService:
         chrome_options = self.config()
         self.browser = webdriver.Chrome(executable_path="crawler/drives/chromedriver_win32/chromedriver.exe",
                                         chrome_options=chrome_options)
+        # self.browser = webdriver.Chrome(executable_path="crawler/drives/chromedriver_linux64/chromedriver",
+        #                                 chrome_options=chrome_options)
 
     def config(self):
         # Chrome Config
@@ -20,26 +22,40 @@ class ExtractorService:
 
         return chrome_options
 
-    def execute(self, link, selector):
-        self.browser.get(link)
+    def execute(self, site):
+        self.browser.get(site['link'])
         self.browser.implicitly_wait(3)
 
         try:
-            form = self.browser.find_element(By.CSS_SELECTOR, selector)
+            form = self.browser.find_element(By.CSS_SELECTOR, site['selector'])
+            inputs_selector = form.find_elements(By.TAG_NAME, "input")
 
-            inputs = form.find_elements(By.TAG_NAME, "label")
+            array_inputs_selector = []
 
-            array_inputs = []
-
-            for e in inputs:
+            for e in inputs_selector:
                 print(e.text)
+                array_inputs_selector.append(e.text)
 
-                # val = e.get_attribute("name")
-                array_inputs.append(e.text)
+            form = self.browser.find_element(By.XPATH, site['xpath'])
+            inputs_xpath = form.find_elements(By.TAG_NAME, "input")
 
-            return array_inputs
-        except:
-            return []
+            array_inputs_xpath = []
+
+            for e in inputs_xpath:
+                val = e.get_attribute("name")
+                print(val)
+                array_inputs_xpath.append(val)
+
+            return {
+                'error': False,
+                'inputs_selector': array_inputs_selector,
+                'inputs_xpath': array_inputs_xpath,
+            }
+        except Exception as e:
+            return {
+                'error': True,
+                'message': str(e)
+            }
 
     def close(self):
         self.browser.quit()

@@ -1,35 +1,37 @@
 from .extractorService import ExtractorService
 from ..repository.crawlerRepository import CrawlerRepository
+from ..wrapper.gatewayWrapper import GatewayWrapperService
 
 
 class JobService:
     def __init__(self):
         self.crawlerRepository = CrawlerRepository()
         self.extractorService = ExtractorService()
+        self.gatewayWrapper = GatewayWrapperService()
 
     def start(self):
-        # substituir pela var sites
-        ref_file = open("crawler/assets/sites.txt", "r")
         print("Init script")
+        sites = self.gatewayWrapper.getSites()
 
-        for line in ref_file:
-            values = line.split(';')
+        for s in sites:
+            print('Site', s['name'], 'Link', s['link'])
 
-            print('Site', values[0], 'Link', values[1])
-            site = values[0]
-            link = values[1]
-            selector = values[2]
+            inputs = self.extractorService.execute(s)
 
-            inputs = self.extractorService.execute(link, selector)
+            if not inputs['error']:
+                data = {
+                    'site_name': s['name'],
+                    'inputs_selector': inputs['inputs_selector'],
+                    'inputs_xpath': inputs['inputs_xpath']
+                }
 
-            data = {
-                'site_name': site,
-                'inputs': inputs
-            }
+                print(data)
 
-            print(data)
-            self.crawlerRepository.create(data)
+                self.crawlerRepository.create(data)
+                self.gatewayWrapper.updateSite(s['id'], {'run': 0})
+            else:
+                self.gatewayWrapper.updateSite(s['id'], {'run': 1, 'error': 0})
+                continue
 
         self.extractorService.close()
-        ref_file.close()
         print("Fim script")

@@ -43,16 +43,6 @@ ROOT_URLCONF = 'webCrawlerFormApi.urls'
 
 WSGI_APPLICATION = 'webCrawlerFormApi.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'crawler',
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

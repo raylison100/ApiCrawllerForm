@@ -10,3 +10,7 @@ drogaraia;https://www.drogaraia.com.br/customer/account/create/;#form-validate
 farmaciaeficacia;https://www.farmaciaeficacia.com.br/customer/account/create/;#form-validate
 gsuplementos;https://www.gsuplementos.com.br/checkout/cadastro;#formCadastroUsuario
 studio3t;https://studio3t.com/download/?utm_source=adwords&utm_medium=ppc&utm_term=mongovue&utm_campaign=GS+%7C+Competitors+%7C+Brazil&hsa_net=adwords&hsa_ad=518216104937&hsa_src=g&hsa_ver=3&hsa_grp=58254892683&hsa_acc=1756351187&hsa_tgt=dsa-31120858817&hsa_mt=b&hsa_kw=mongovue&hsa_cam=1537319220&gclid=Cj0KCQjwt-6LBhDlARIsAIPRQcI15J-T8-IqfrQHQXFG1L8c-oig0pLfOxSXT4yDMbUA2Imf_FWy2R0aApMIEALw_wcB;#form
+
+
+
+https://avell.com.br/onestepcheckout/index/
