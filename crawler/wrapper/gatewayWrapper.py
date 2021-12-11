@@ -13,4 +13,3 @@ class GatewayWrapperService:
 
     def updateSite(self, site_id, data):
         r = requests.put(self.url + 'sites/sites/' + str(site_id), data)
-        print(r.json())

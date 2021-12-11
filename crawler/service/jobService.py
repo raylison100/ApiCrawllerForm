@@ -20,6 +20,7 @@ class JobService:
 
             if not inputs['error']:
                 data = {
+                    'site_id': s['id'],
                     'site_name': s['name'],
                     'inputs_selector': inputs['inputs_selector'],
                     'inputs_xpath': inputs['inputs_xpath']
@@ -28,9 +29,9 @@ class JobService:
                 print(data)
 
                 self.crawlerRepository.create(data)
-                self.gatewayWrapper.updateSite(s['id'], {'run': 0})
+                self.gatewayWrapper.updateSite(s['id'], {'run': 1})
             else:
-                self.gatewayWrapper.updateSite(s['id'], {'run': 1, 'error': 0})
+                self.gatewayWrapper.updateSite(s['id'], {'run': 1, 'error': 1})
                 continue
 
         self.extractorService.close()
