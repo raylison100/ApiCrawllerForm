@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 
 
 class ExtractorService:
@@ -9,8 +8,6 @@ class ExtractorService:
     def __init__(self):
         chrome_options = self.config()
         self.browser = webdriver.Chrome(chrome_options=chrome_options)
-        # self.browser = webdriver.Chrome(executable_path="crawler/drives/chromedriver_linux64/chromedriver",
-        #                                 chrome_options=chrome_options)
 
     def config(self):
         # Chrome Config
@@ -57,7 +54,6 @@ class ExtractorService:
             if site['xpath']:
                 form = self.browser.find_element(By.XPATH, site['xpath'])
                 inputs_xpath = form.find_elements(By.TAG_NAME, "input")
-
 
                 for e in inputs_xpath:
                     attr = e.get_attribute("name")

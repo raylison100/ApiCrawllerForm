@@ -1,6 +1,8 @@
-# save this as app.py
 from flask import Flask
 from crawler.service.jobService import JobService
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -27,11 +29,27 @@ def start():
 
     print("Finish Job")
     return {
-        'erro': False,
+        'error': False,
         'message': "Job Finish"
     }
 
 
-if __name__ == "__app__":
-    # Only for debugging while developing
-    app.run(host="0.0.0.0", debug=True, port=80)
+@app.route("/api/job/process")
+def process():
+    print("Init Process")
+    jobService = JobService()
+    print("Start Process")
+    jobService.process()
+
+    print("Finish Process")
+    return {
+        'error': False,
+        'message': "Process Finish"
+    }
+
+
+app.run(host="0.0.0.0", debug=True, port=5000)
+
+# if __name__ == "__app__":
+#     # Only for debugging while developing
+#     app.run(host="0.0.0.0", debug=True, port=80)

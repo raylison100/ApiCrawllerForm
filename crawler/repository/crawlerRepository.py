@@ -3,8 +3,13 @@ from ..dataBase.connection import Connection
 
 class CrawlerRepository:
     def __init__(self):
-        cnt = Connection.mongo_connect()
-        self.db = cnt['inputs']
+        client = Connection.mongo_connect()
+        database = client['crawler']
+        self.collection = database['inputs']
 
     def create(self, data):
-        self.db.insert_one(data)
+        self.collection.insert_one(data)
+
+    def list(self):
+        result = self.collection.find({})
+        return result
