@@ -7,7 +7,10 @@ class ExtractorService:
 
     def __init__(self):
         chrome_options = self.config()
-        self.browser = webdriver.Chrome(chrome_options=chrome_options)
+        # self.browser = webdriver.Chrome(chrome_options=chrome_options)
+        self.browser = webdriver.Chrome(
+            executable_path=r"C:\Users\TDX\Documents\Project\Crawler\ApiCrawlerForm\plugins\chromedriver.exe",
+            chrome_options=chrome_options)
 
     def config(self):
         # Chrome Config
@@ -22,10 +25,11 @@ class ExtractorService:
         self.browser.get(site['link'])
         self.browser.implicitly_wait(3)
 
-        try:
-            array_inputs_selector = []
-            array_label_selector = []
+        array_inputs_selector = []
+        array_label_selector = []
+        error = False
 
+        try:
             if site['selector']:
                 form = self.browser.find_element(By.CSS_SELECTOR, site['selector'])
                 inputs_selector = form.find_elements(By.TAG_NAME, "input")
@@ -47,10 +51,18 @@ class ExtractorService:
 
                     if text:
                         array_label_selector.append(text)
+        except Exception as e:
+            print('----------------------------------------------------------------------')
+            print('----------------------------------------------------------------------')
+            print(str(e))
+            print('----------------------------------------------------------------------')
+            print('----------------------------------------------------------------------')
+            error = True
 
-            array_inputs_xpath = []
-            array_label_xpath = []
+        array_inputs_xpath = []
+        array_label_xpath = []
 
+        try:
             if site['xpath']:
                 form = self.browser.find_element(By.XPATH, site['xpath'])
                 inputs_xpath = form.find_elements(By.TAG_NAME, "input")
@@ -73,24 +85,27 @@ class ExtractorService:
                     print(attr)
                     if attr:
                         array_label_xpath.append(attr)
-
-            return {
-                'error': False,
-                'inputs_selector': array_inputs_selector,
-                'label_selector': array_label_selector,
-                'inputs_xpath': array_inputs_xpath,
-                'label_xpath': array_label_xpath,
-            }
         except Exception as e:
             print('----------------------------------------------------------------------')
             print('----------------------------------------------------------------------')
             print(str(e))
             print('----------------------------------------------------------------------')
             print('----------------------------------------------------------------------')
+            error = True
+
+        if error:
             return {
                 'error': True,
-                'message': str(e)
+                'message': "Falha ao extrair dados",
             }
+
+        return {
+            'error': False,
+            'inputs_selector': array_inputs_selector,
+            'label_selector': array_label_selector,
+            'inputs_xpath': array_inputs_xpath,
+            'label_xpath': array_label_xpath,
+        }
 
     def close(self):
         self.browser.quit()
