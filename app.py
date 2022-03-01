@@ -48,8 +48,8 @@ def process():
     }
 
 
-app.run(host="0.0.0.0", debug=True, port=5000)
+# app.run(host="0.0.0.0", debug=True, port=5000)
 
-# if __name__ == "__app__":
-#     # Only for debugging while developing
-#     app.run(host="0.0.0.0", debug=True, port=80)
+if __name__ == "__app__":
+    # Only for debugging while developing
+    app.run(host="0.0.0.0", debug=True, port=80)

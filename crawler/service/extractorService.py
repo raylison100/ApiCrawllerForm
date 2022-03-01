@@ -9,7 +9,7 @@ class ExtractorService:
         chrome_options = self.config()
         # self.browser = webdriver.Chrome(chrome_options=chrome_options)
         self.browser = webdriver.Chrome(
-            executable_path=r"C:\Users\TDX\Documents\Project\Crawler\ApiCrawlerForm\plugins\chromedriver.exe",
+            executable_path=r"C:\Users\rayli\Documents\Projects\Crawler-Tcc\ApiCrawllerForm\plugins\chromedriver.exe",
             chrome_options=chrome_options)
 
     def config(self):
